@@ -1,4 +1,4 @@
-# hexo-bilibili-bangumi
+# hexo-steam-games
 
 ![](https://nodei.co/npm/hexo-steam-games.png?downloads=true&downloadRank=true&stars=true)
 
