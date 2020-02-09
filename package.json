@@ -16,7 +16,7 @@
   "author": "HCLonely",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios-https-proxy-fix": "^0.17.1",
     "cheerio": "^1.0.0-rc.3",
     "ejs": "^3.0.1",
     "hexo-fs": "^2.0.0",
