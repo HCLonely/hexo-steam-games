@@ -1,0 +1,25 @@
+{
+  "name": "hexo-steam-games",
+  "version": "1.0.0",
+  "description": "Hexo Steam games psge",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "hexo",
+    "steam",
+    "game"
+  ],
+  "author": "HCLonely",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cheerio": "^1.0.0-rc.3",
+    "ejs": "^3.0.1",
+    "hexo-fs": "^2.0.0",
+    "hexo-i18n": "^1.0.0",
+    "hexo-log": "^1.0.0",
+    "path": "^0.12.7"
+  }
+}
