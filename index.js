@@ -1,4 +1,5 @@
 const fs = require('hexo-fs');
+const path = require('path');
 const log = require('hexo-log')({
     debug: false,
     silent: false
@@ -13,18 +14,18 @@ hexo.extend.generator.register('steamgames', function (locals) {
     return require('./lib/steam-games-generator').call(this, locals);
 });
 hexo.extend.console.register('steam update', 'Generate pages from steamgames', function (args) {
-    if (!this.config.steam || !this.config.steam.enable){
+    if (!this.config.steam || !this.config.steam.enable) {
         log.info("Please add config to _config.yml");
         return;
     }
-    if (!this.config.steam.steamId){
+    if (!this.config.steam.steamId) {
         log.info("Please add steamId to _config.yml");
         return;
     }
-    updateSteamGames(this.config.steam.steamId, this.config.steam.tab,this.config.steam.length,this.config.steam.proxy);
+    updateSteamGames(this.config.steam.steamId, this.config.steam.tab, this.config.steam.length, this.config.steam.proxy);
 });
 
-function updateSteamGames(steamId, tab = "recent", length=1000, proxy=false) {
+function updateSteamGames(steamId, tab = "recent", length = 1000, proxy = false) {
     log.info("Getting steam games, please wait...");
     let options = {
         method: "GET",
@@ -35,7 +36,7 @@ function updateSteamGames(steamId, tab = "recent", length=1000, proxy=false) {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36"
         }
     };
-    if (proxy) {
+    if (proxy && proxy.host && proxy.host) {
         options.proxy = {
             host: proxy.host,
             port: proxy.port
@@ -55,15 +56,16 @@ function updateSteamGames(steamId, tab = "recent", length=1000, proxy=false) {
                     }
                 }
             }
-            if (!fs.existsSync("./data/")) {
-                fs.mkdirsSync("./data/");
+            if (!fs.existsSync(path.join(__dirname, "/data/"))) {
+                console.log(fs.mkdirsSync(path.join(__dirname, "/data/")));
             }
-            fs.writeFile("./data/games.json", JSON.stringify(games.slice(0, length)), err => {
+            let gameData = games.slice(0, length);
+            fs.writeFile(path.join(__dirname, "/data/games.json"), JSON.stringify(gameData), err => {
                 if (err) {
                     log.info("Failed to write data to games.json");
                     console.log(err);
                 } else {
-                    log.info("Get steam games: complete!");
+                    log.info(gameData.length+"game data are saved.");
                 }
             });
         }
