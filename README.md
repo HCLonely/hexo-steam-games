@@ -48,16 +48,15 @@ steam:
 3. 你会找到`source/steamgames/index.md`这个文件
 4. 修改这个文件，添加`type: "steamgames"`：
 
-```markdown
----
-title: steamgames
-date: 2018-01-05 00:00:00
-type: "steamgames"
----
-```
+    ```markdown
+    ---
+    title: steamgames
+    date: 2018-01-05 00:00:00
+    type: "steamgames"
+    ---
+    ```
 
 5. 防止请求次数过多插件不会自动获取steam游戏库数据，所以请根据自己的需要在`hexo generate`或`hexo deploy`之前使用`hexo steam update`命令更新steam游戏库数据！
-
 
 ## 示例
 
