@@ -56,6 +56,9 @@ type: "steamgames"
 ---
 ```
 
+5. 防止请求次数过多插件不会自动获取steam游戏库数据，所以请根据自己的需要在`hexo generate`或`hexo deploy`之前使用`hexo steam update`命令更新steam游戏库数据！
+
+
 ## 示例
 
 ![示例图片](https://github.com/HCLonely/hexo-steam-games/raw/master/example.png)
