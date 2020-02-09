@@ -1,7 +1,7 @@
 {
   "name": "hexo-steam-games",
   "version": "1.0.0",
-  "description": "Hexo Steam games psge",
+  "description": "Hexo Steam games page",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,7 +9,9 @@
   "keywords": [
     "hexo",
     "steam",
-    "game"
+    "game",
+    "generator",
+    "plugin"
   ],
   "author": "HCLonely",
   "license": "MIT",
@@ -21,5 +23,12 @@
     "hexo-i18n": "^1.0.0",
     "hexo-log": "^1.0.0",
     "path": "^0.12.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HCLonely/hexo-steam-games.git"
+  },
+  "devDependencies": {
+    "ejs-lint": "^1.0.1"
   }
 }
