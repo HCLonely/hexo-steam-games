@@ -36,7 +36,7 @@ function updateSteamGames(steamId, tab = "recent", length = 1000, proxy = false)
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36"
         }
     };
-    if (proxy && proxy.host && proxy.host) {
+    if (proxy && proxy.host && proxy.port) {
         options.proxy = {
             host: proxy.host,
             port: proxy.port
