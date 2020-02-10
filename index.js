@@ -57,7 +57,7 @@ function updateSteamGames(steamId, tab = "recent", length = 1000, proxy = false)
                 }
             }
             if (!fs.existsSync(path.join(__dirname, "/data/"))) {
-                console.log(fs.mkdirsSync(path.join(__dirname, "/data/")));
+                fs.mkdirsSync(path.join(__dirname, "/data/"));
             }
             let gameData = games.slice(0, length);
             fs.writeFile(path.join(__dirname, "/data/games.json"), JSON.stringify(gameData), err => {

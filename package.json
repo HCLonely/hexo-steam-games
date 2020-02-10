@@ -1,6 +1,6 @@
 {
   "name": "hexo-steam-games",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Hexo Steam games page",
   "main": "index.js",
   "scripts": {
