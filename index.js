@@ -7,22 +7,36 @@ const log = require('hexo-log')({
 const axios = require('axios-https-proxy-fix');
 const cheerio = require('cheerio');
 
+let options = {
+    options: [
+        { name: '-u, --update', desc: 'Update steam games data' },
+        { name: '-d, --delete', desc: 'Delete steam games data' }
+    ]
+};
+
 hexo.extend.generator.register('steamgames', function (locals) {
     if (!this.config.steam || !this.config.steam.enable) {
         return;
     }
     return require('./lib/steam-games-generator').call(this, locals);
 });
-hexo.extend.console.register('steam update', 'Generate pages from steamgames', function (args) {
-    if (!this.config.steam || !this.config.steam.enable) {
-        log.info("Please add config to _config.yml");
-        return;
+hexo.extend.console.register('steam', 'Update steam games data', options, function (args) {
+    if (args.d) {
+        if (fs.existsSync(path.join(__dirname, "/data/"))) {
+            fs.rmdirSync(path.join(__dirname, "/data/"));
+            log.info('Steam games data has been deleted');
+        }
+    } else {
+        if (!this.config.steam || !this.config.steam.enable) {
+            log.info("Please add config to _config.yml");
+            return;
+        }
+        if (!this.config.steam.steamId) {
+            log.info("Please add steamId to _config.yml");
+            return;
+        }
+        updateSteamGames(this.config.steam.steamId, this.config.steam.tab, this.config.steam.length, this.config.steam.proxy);
     }
-    if (!this.config.steam.steamId) {
-        log.info("Please add steamId to _config.yml");
-        return;
-    }
-    updateSteamGames(this.config.steam.steamId, this.config.steam.tab, this.config.steam.length, this.config.steam.proxy);
 });
 
 function updateSteamGames(steamId, tab = "recent", length = 1000, proxy = false) {

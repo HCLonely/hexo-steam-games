@@ -12,6 +12,12 @@
 $ npm install hexo-steam-games --save
 ```
 
+## 更新
+
+```bash
+$ npm install hexo-steam-games --update --save
+```
+
 ------------
 
 ## 配置
@@ -58,7 +64,8 @@ steam:
     ---
     ```
 
-5. 防止请求次数过多插件不会自动获取steam游戏库数据，所以请根据自己的需要在`hexo generate`或`hexo deploy`之前使用`hexo steam update`命令更新steam游戏库数据！
+5. 防止请求次数过多插件不会自动获取steam游戏库数据，所以请根据自己的需要在`hexo generate`或`hexo deploy`之前使用`hexo steam -u`命令更新steam游戏库数据！
+6. 删除游戏库数据指令:`hexo steam -d`
 
 ## 示例
 
