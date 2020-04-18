@@ -26,7 +26,7 @@ hexo.extend.console.register('steam', 'Update steam games data', options, functi
             fs.rmdirSync(path.join(__dirname, "/data/"));
             log.info('Steam games data has been deleted');
         }
-    } else {
+    } else if (args.u) {
         if (!this.config.steam || !this.config.steam.enable) {
             log.info("Please add config to _config.yml");
             return;
@@ -36,6 +36,8 @@ hexo.extend.console.register('steam', 'Update steam games data', options, functi
             return;
         }
         updateSteamGames(this.config.steam.steamId, this.config.steam.tab, this.config.steam.length, this.config.steam.proxy);
+    } else {
+        console.error("Unknown command.")
     }
 });
 
@@ -44,7 +46,7 @@ function updateSteamGames(steamId, tab = "recent", length = 1000, proxy = false)
     let options = {
         method: "GET",
         url: `https://steamcommunity.com/profiles/${steamId}/games/?tab=${tab}`,
-        timeout: 0,
+        timeout: 30 * 60 * 1000,
         responseType: "text",
         headers: {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36"
@@ -63,12 +65,17 @@ function updateSteamGames(steamId, tab = "recent", length = 1000, proxy = false)
             var games = [];
             for (let i = 0; i < script.length; i++) {
                 if (script.eq(i).html().includes("rgGames")) {
+                    log.info(true)
                     let rgGames = script.eq(i).html().match(/var.*?rgGames.*?=.*?(\[[\w\W]*?\}\}\]);/);
                     if (rgGames) {
                         games = JSON.parse(rgGames[1]);
                         break;
                     }
                 }
+            }
+            if (games.length === 0) {
+                log.error('No game data obtained.')
+                return;
             }
             if (!fs.existsSync(path.join(__dirname, "/data/"))) {
                 fs.mkdirsSync(path.join(__dirname, "/data/"));
@@ -79,9 +86,11 @@ function updateSteamGames(steamId, tab = "recent", length = 1000, proxy = false)
                     log.info("Failed to write data to games.json");
                     console.log(err);
                 } else {
-                    log.info(gameData.length+"game data are saved.");
+                    log.info(gameData.length + "game data are saved.");
                 }
             });
+        } else {
+            console.error('ERROR: ' + response.status)
         }
     }).catch(error => {
         console.log(error);

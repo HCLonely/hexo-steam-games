@@ -12,12 +12,6 @@
 $ npm install hexo-steam-games --save
 ```
 
-## 更新
-
-```bash
-$ npm install hexo-steam-games --update --save
-```
-
 ------------
 
 ## 配置
@@ -67,9 +61,34 @@ steam:
 5. 防止请求次数过多插件不会自动获取steam游戏库数据，所以请根据自己的需要在`hexo generate`或`hexo deploy`之前使用`hexo steam -u`命令更新steam游戏库数据！
 6. 删除游戏库数据指令:`hexo steam -d`
 
+## 手动获取游戏库数据
+
+如果`hexo steam -u`命令一直获取游戏库数据失败，可以用一下方法手动获取游戏库数据：
+
+1. 浏览器打开`https://steamcommunity.com/id/{steamId}/games?tab={tab}`, `{steamId}`和`{tab}`分别替换为上面配置中提到的`steamId`和`tab`
+2. 网页加载完成后，打开浏览器控制台(按`F12`)，输入以下代码并回车：
+
+    ```
+    let script = jQuery('script[language="javascript"]');
+    var games = [];
+    for (let i = 0; i < script.length; i++) {
+      if (script.eq(i).html().includes("rgGames")) {
+        let rgGames = script.eq(i).html().match(/var.*?rgGames.*?=.*?(\[[\w\W]*?\}\}\]);/);
+        if (rgGames) {
+          games = JSON.parse(rgGames[1]);
+          break;
+        }
+      }
+    }
+    document.write(JSON.stringify(games))
+    ```
+
+3. 将生成的内容复制到`博客根目录/node_modules/hexo-steam-games/data/games.json`文件内，如果没有对应的文件或目录，请自行创建
+
 ## 示例
 
-![示例图片](https://github.com/HCLonely/hexo-steam-games/raw/master/example.png)
+![示例图片](https://github.com/HCLonely/hexo-steam-games/raw/master/example1.png)
+![示例图片](https://github.com/HCLonely/hexo-steam-games/raw/master/example2.png)
 
 ## Lisense
 
