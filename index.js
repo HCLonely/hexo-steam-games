@@ -65,7 +65,6 @@ function updateSteamGames(steamId, tab = "recent", length = 1000, proxy = false)
             var games = [];
             for (let i = 0; i < script.length; i++) {
                 if (script.eq(i).html().includes("rgGames")) {
-                    log.info(true)
                     let rgGames = script.eq(i).html().match(/var.*?rgGames.*?=.*?(\[[\w\W]*?\}\}\]);/);
                     if (rgGames) {
                         games = JSON.parse(rgGames[1]);
