@@ -37,7 +37,7 @@ hexo.extend.console.register('steam', 'Update steam games data', options, functi
         }
         updateSteamGames(this.config.steam.steamId, this.config.steam.tab, this.config.steam.length, this.config.steam.proxy);
     } else {
-        console.error("Unknown command.")
+        console.error("Unknown command, please use \"hexo bangumi -h\" to see the available commands")
     }
 });
 
