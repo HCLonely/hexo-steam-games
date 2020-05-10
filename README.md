@@ -81,4 +81,4 @@ steam:
 
 ## Lisense
 
-[MIT](https://github.com/HCLonely/hexo-steam-games/blob/master/LICENSE)
+[Apache Licence 2.0](https://github.com/HCLonely/hexo-steam-games/blob/master/LICENSE)
