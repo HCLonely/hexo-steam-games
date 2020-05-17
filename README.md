@@ -4,7 +4,9 @@
 
 ## 介绍
 
-**为Hexo添加Steam游戏库页面** [Demo](https://blog.hclonely.com/steamgames/).
+**为Hexo添加Steam游戏库页面**.
+
+[Demo](https://demo.hclonely.com/steamgames/)
 
 ## 安装
 
