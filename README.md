@@ -24,7 +24,7 @@ $ npm install hexo-steam-games --save
 steam:
   enable: true
   steamId: '*****' #steam 64位Id
-  path: 
+  path:
   title: Steam游戏库
   quote: '+1+1+1+1+1'
   tab: recent
@@ -33,6 +33,8 @@ steam:
   proxy:
     host:
     port:
+  extra_options:
+    key: value
 ```
 
 - **enable**: 是否启用
@@ -46,6 +48,7 @@ steam:
 - **proxy**: 如果无法访问steam社区的话请使用代理
   - **host**: 代理ip或域名
   - **port**: 代理端口
+- **extra_options**: 此配置会扩展到Hexo的`page`变量中
 
 ## 使用
 
