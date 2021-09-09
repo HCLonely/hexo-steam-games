@@ -59,7 +59,7 @@ steam:
 
 如果`hexo steam -u`命令一直获取游戏库数据失败，可以用一下方法手动获取游戏库数据：
 
-1. 浏览器打开`https://steamcommunity.com/id/{steamId}/games?tab={tab}`, `{steamId}`和`{tab}`分别替换为上面配置中提到的`steamId`和`tab`
+1. 浏览器打开`https://steamcommunity.com/profiles/{steamId}/games?tab={tab}`, `{steamId}`和`{tab}`分别替换为上面配置中提到的`steamId`和`tab`
 2. 网页加载完成后，打开浏览器控制台(按`F12`)，输入以下代码并回车：
 
     ```
