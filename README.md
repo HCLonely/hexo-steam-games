@@ -24,6 +24,8 @@ $ npm install hexo-steam-games --save
 steam:
   enable: true
   steamId: '*****' #steam 64位Id
+  apiKey: '*****' #steam api key
+  freeGames: true
   path:
   title: Steam游戏库
   quote: '+1+1+1+1+1'
@@ -39,6 +41,7 @@ steam:
 
 - **enable**: 是否启用
 - **steamId**: steam 64位Id(需要放在引号里面，不然会有BUG), ***需要将steam库设置为公开！***
+- **apiKey**: Steam 网页 API Key(新版需要API Key才能获取到游戏信息，[点此](https://steamcommunity.com/dev/apikey)注册 API Key)，或者手动获取游戏库数据
 - **path**: 番剧页面路径，默认`steamgames/index.html`
 - **title**: 该页面的标题
 - **quote**: 写在页面开头的一段话,支持html语法
@@ -63,18 +66,9 @@ steam:
 2. 网页加载完成后，打开浏览器控制台(按`F12`)，输入以下代码并回车：
 
     ```
-    let script = jQuery('script[language="javascript"]');
-    var games = [];
-    for (let i = 0; i < script.length; i++) {
-      if (script.eq(i).html().includes("rgGames")) {
-        let rgGames = script.eq(i).html().match(/var.*?rgGames.*?=.*?(\[[\w\W]*?\}\}\]);/);
-        if (rgGames) {
-          games = JSON.parse(rgGames[1]);
-          break;
-        }
-      }
-    }
-    document.write(JSON.stringify(games))
+    const data = document.querySelector('#gameslist_config').getAttribute('data-profile-gameslist');
+    const games = JSON.parse(data.replace(/\n/g, '')).rgGames;
+    document.write(JSON.stringify(games).replace(/\n/g, ''));
     ```
 
 3. 将生成的内容复制到`博客根目录/node_modules/hexo-steam-games/data/games.json`文件内，如果没有对应的文件或目录，请自行创建

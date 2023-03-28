@@ -35,19 +35,23 @@ hexo.extend.console.register('steam', 'Update steam games data', options, functi
             log.info("Please add steamId to _config.yml");
             return;
         }
-        updateSteamGames(this.config.steam.steamId, this.config.steam.tab, this.config.steam.length, this.config.steam.proxy);
+        if (!this.config.steam.apiKey) {
+            log.info("Please add apiKey to _config.yml");
+            return;
+        }
+        updateSteamGames(this.config.steam.steamId, this.config.steam.apiKey, this.config.steam.tab, this.config.steam.length, this.config.steam.proxy, this.config.steam.freeGames);
     } else {
         console.error("Unknown command, please use \"hexo bangumi -h\" to see the available commands")
     }
 });
 
-function updateSteamGames(steamId, tab = "recent", length = 1000, proxy = false) {
+function updateSteamGames(steamId, apiKey, tab = "recent", length = 1000, proxy = false, freeGames = false) {
     log.info("Getting steam games, please wait...");
     let options = {
         method: "GET",
-        url: `https://steamcommunity.com/profiles/${steamId}/games/?tab=${tab}`,
+        url: `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${apiKey}&steamid=${steamId}&format=json&include_appinfo=true${freeGames ? '&include_played_free_games=true' : ''}`,
         timeout: 30 * 60 * 1000,
-        responseType: "text",
+        responseType: "json",
         headers: {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36"
         }
@@ -60,18 +64,7 @@ function updateSteamGames(steamId, tab = "recent", length = 1000, proxy = false)
     }
     axios(options).then(response => {
         if (response.status === 200) {
-            let $ = cheerio.load(response.data);
-            let script = $('script[language="javascript"]');
-            var games = [];
-            for (let i = 0; i < script.length; i++) {
-                if (script.eq(i).html().includes("rgGames")) {
-                    let rgGames = script.eq(i).html().match(/var.*?rgGames.*?=.*?(\[[\w\W]*?\}\}\]);/);
-                    if (rgGames) {
-                        games = JSON.parse(rgGames[1]);
-                        break;
-                    }
-                }
-            }
+            const games = response.data.response.games;
             if (games.length === 0) {
                 log.error('No game data obtained.')
                 return;
