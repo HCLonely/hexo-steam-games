@@ -25,6 +25,12 @@ steam:
   enable: true
   steamId: '*****' #steam 64位Id
   apiKey: '*****' #steam api key
+  steamInfos: # 多账号配置
+    - id: '*****' #steam 64位Id
+      path: # 为每个帐号游戏库单独配置页面路径，默认`steamgames/{steamId}/index.html`
+      ... # 兼容以下配置项
+    - id: '*****'
+      ...
   freeGames: true
   path:
   title: Steam游戏库
@@ -40,9 +46,10 @@ steam:
 ```
 
 - **enable**: 是否启用
-- **steamId**: steam 64位Id(需要放在引号里面，不然会有BUG), ***需要将steam库设置为公开！***
 - **apiKey**: Steam 网页 API Key(新版需要API Key才能获取到游戏信息，[点此](https://steamcommunity.com/dev/apikey)注册 API Key)，或者手动获取游戏库数据
-- **path**: 番剧页面路径，默认`steamgames/index.html`
+- **steamId**: steam 64位Id(需要放在引号里面，不然会有BUG), ***需要将steam库设置为公开！***
+- **steamInfos**: 多账号配置
+- **path**: 游戏页面路径，默认`steamgames/index.html`
 - **title**: 该页面的标题
 - **quote**: 写在页面开头的一段话,支持html语法
 - **tab**: `all`或`recent`, `all: 所有游戏`, `recent: 最近游玩的游戏`

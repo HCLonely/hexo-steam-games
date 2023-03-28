@@ -31,22 +31,29 @@ hexo.extend.console.register('steam', 'Update steam games data', options, functi
             log.info("Please add config to _config.yml");
             return;
         }
-        if (!this.config.steam.steamId) {
-            log.info("Please add steamId to _config.yml");
+        if (!this.config.steam.steamId && !this.config.steam.steamInfos) {
+            log.info("Please add steamId/steamInfos to _config.yml");
             return;
         }
         if (!this.config.steam.apiKey) {
             log.info("Please add apiKey to _config.yml");
             return;
         }
-        updateSteamGames(this.config.steam.steamId, this.config.steam.apiKey, this.config.steam.tab, this.config.steam.length, this.config.steam.proxy, this.config.steam.freeGames);
+        if (this.config.steam.steamId) {
+            updateSteamGames(this.config.steam.steamId, this.config.steam.apiKey, this.config.steam.tab, this.config.steam.length, this.config.steam.proxy, this.config.steam.freeGames);
+        } else if (this.config.steam.steamInfos) {
+            this.config.steam.steamInfos.forEach(steamInfo => {
+
+                updateSteamGames(steamInfo.id, this.config.steam.apiKey, steamInfo.tab || this.config.steam.tab, steamInfo.length || this.config.steam.length, steamInfo.proxy || this.config.steam.proxy, steamInfo.freeGames || this.config.steam.freeGames);
+            });
+        }
     } else {
         console.error("Unknown command, please use \"hexo bangumi -h\" to see the available commands")
     }
 });
 
 function updateSteamGames(steamId, apiKey, tab = "recent", length = 1000, proxy = false, freeGames = false) {
-    log.info("Getting steam games, please wait...");
+    log.info(`Getting steam(${steamId}) games, please wait...`);
     let options = {
         method: "GET",
         url: `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${apiKey}&steamid=${steamId}&format=json&include_appinfo=true${freeGames ? '&include_played_free_games=true' : ''}`,
@@ -73,12 +80,12 @@ function updateSteamGames(steamId, apiKey, tab = "recent", length = 1000, proxy 
                 fs.mkdirsSync(path.join(__dirname, "/data/"));
             }
             let gameData = games.slice(0, length);
-            fs.writeFile(path.join(__dirname, "/data/games.json"), JSON.stringify(gameData), err => {
+            fs.writeFile(path.join(__dirname, `/data/${steamId}.json`), JSON.stringify(gameData), err => {
                 if (err) {
-                    log.info("Failed to write data to games.json");
+                    log.info(`Failed to write data to ${steamId}.json`);
                     console.log(err);
                 } else {
-                    log.info(gameData.length + "game data are saved.");
+                    log.info(`${gameData.length} games(${steamId}) data are saved.`);
                 }
             });
         } else {
