@@ -71,7 +71,9 @@ function updateSteamGames(steamId, apiKey, tab = "recent", length = 1000, proxy 
     }
     axios(options).then(response => {
         if (response.status === 200) {
-            const games = response.data.response.games;
+            const games = (tab == 'recent') ? response.data.response.games.sort((a, b) =>
+                b.rtime_last_played - a.rtime_last_played
+            ) : response.data.response.games;
             if (games.length === 0) {
                 log.error('No game data obtained.')
                 return;
