@@ -78,7 +78,7 @@ steam:
     document.write(JSON.stringify(games).replace(/\n/g, ''));
     ```
 
-3. 将生成的内容复制到`博客根目录/node_modules/hexo-steam-games/data/games.json`文件内，如果没有对应的文件或目录，请自行创建
+3. 将生成的内容复制到`博客根目录/source/_data/{steamId}.json`文件内，如果没有对应的文件或目录，请自行创建, `{steamId}`替换为上面配置中提到的`steamId`
 
 ## 示例
 

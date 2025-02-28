@@ -5,7 +5,6 @@ const log = require('hexo-log')({
     silent: false
 });
 const axios = require('axios-https-proxy-fix');
-const cheerio = require('cheerio');
 
 let options = {
     options: [
@@ -22,8 +21,8 @@ hexo.extend.generator.register('steamgames', function (locals) {
 });
 hexo.extend.console.register('steam', 'Update steam games data', options, function (args) {
     if (args.d) {
-        if (fs.existsSync(path.join(__dirname, "/data/"))) {
-            fs.rmdirSync(path.join(__dirname, "/data/"));
+        if (fs.existsSync(path.join(this.source_dir, "/_data/"))) {
+            fs.rmdirSync(path.join(this.source_dir, "/data/"));
             log.info('Steam games data has been deleted');
         }
     } else if (args.u) {
@@ -44,15 +43,15 @@ hexo.extend.console.register('steam', 'Update steam games data', options, functi
         } else if (this.config.steam.steamInfos) {
             this.config.steam.steamInfos.forEach(steamInfo => {
 
-                updateSteamGames(steamInfo.id, this.config.steam.apiKey, steamInfo.tab || this.config.steam.tab, steamInfo.length || this.config.steam.length, steamInfo.proxy || this.config.steam.proxy, steamInfo.freeGames || this.config.steam.freeGames);
+                updateSteamGames(steamInfo.id, this.config.steam.apiKey, this.source_dir, steamInfo.tab || this.config.steam.tab, steamInfo.length || this.config.steam.length, steamInfo.proxy || this.config.steam.proxy, steamInfo.freeGames || this.config.steam.freeGames);
             });
         }
     } else {
-        console.error("Unknown command, please use \"hexo bangumi -h\" to see the available commands")
+        console.error("Unknown command, please use \"hexo steam -h\" to see the available commands")
     }
 });
 
-function updateSteamGames(steamId, apiKey, tab = "recent", length = 1000, proxy = false, freeGames = false) {
+function updateSteamGames(steamId, apiKey, source_dir, tab = "recent", length = 1000, proxy = false, freeGames = false) {
     log.info(`Getting steam(${steamId}) games, please wait...`);
     let options = {
         method: "GET",
@@ -78,11 +77,11 @@ function updateSteamGames(steamId, apiKey, tab = "recent", length = 1000, proxy 
                 log.error('No game data obtained.')
                 return;
             }
-            if (!fs.existsSync(path.join(__dirname, "/data/"))) {
-                fs.mkdirsSync(path.join(__dirname, "/data/"));
+            if (!fs.existsSync(path.join(source_dir, "/_data/"))) {
+                fs.mkdirsSync(path.join(source_dir, "/_data/"));
             }
             let gameData = games.slice(0, length);
-            fs.writeFile(path.join(__dirname, `/data/${steamId}.json`), JSON.stringify(gameData), err => {
+            fs.writeFile(path.join(source_dir, `/_data/${steamId}.json`), JSON.stringify(gameData), err => {
                 if (err) {
                     log.info(`Failed to write data to ${steamId}.json`);
                     console.log(err);
