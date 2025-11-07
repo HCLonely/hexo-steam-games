@@ -39,7 +39,7 @@ hexo.extend.console.register('steam', 'Update steam games data', options, functi
             return;
         }
         if (this.config.steam.steamId) {
-            updateSteamGames(this.config.steam.steamId, this.config.steam.apiKey, this.config.steam.tab, this.config.steam.length, this.config.steam.proxy, this.config.steam.freeGames);
+            updateSteamGames(this.config.steam.steamId, this.config.steam.apiKey, this.source_dir, this.config.steam.tab, this.config.steam.length, this.config.steam.proxy, this.config.steam.freeGames);
         } else if (this.config.steam.steamInfos) {
             this.config.steam.steamInfos.forEach(steamInfo => {
 
