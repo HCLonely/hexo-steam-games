@@ -29,6 +29,11 @@
     "url": "git+https://github.com/HCLonely/hexo-steam-games.git"
   },
   "devDependencies": {
-    "ejs-lint": "^1.0.1"
+    "ejs-lint": "^2.0.1"
+  },
+  "overrides": {
+    "ejs-lint": {
+      "ejs": "^3.1.10"
+    }
   }
 }
