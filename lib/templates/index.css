@@ -25,6 +25,19 @@
   box-sizing: border-box !important;
 }
 
+.steam-games-theme-light {
+  --steam-bg: #f2f6fa;
+  --steam-surface: #ffffff;
+  --steam-surface-strong: #e8f0f7;
+  --steam-line: rgba(66, 99, 130, 0.18);
+  --steam-text: #182636;
+  --steam-muted: #5f6f80;
+  --steam-blue: #2878b9;
+  --steam-blue-strong: #155c93;
+  --steam-green: #4f8f24;
+  --steam-shadow: rgba(24, 38, 54, 0.12);
+}
+
 .steam-games-quote {
   margin: 0 0 18px !important;
   padding: 16px 18px !important;
@@ -33,6 +46,10 @@
   background: linear-gradient(135deg, rgba(102, 192, 244, 0.14), rgba(154, 212, 74, 0.08)) !important;
   color: var(--steam-text) !important;
   box-shadow: 0 12px 28px var(--steam-shadow) !important;
+}
+
+.steam-games-theme-light .steam-games-quote {
+  background: linear-gradient(135deg, rgba(40, 120, 185, 0.1), rgba(79, 143, 36, 0.08)) !important;
 }
 
 .steam-games-quote p {
@@ -67,6 +84,13 @@
   box-shadow: 0 18px 46px var(--steam-shadow) !important;
 }
 
+.steam-games-theme-light .steam-games-list-wrap {
+  background:
+    radial-gradient(circle at 14% 0%, rgba(40, 120, 185, 0.12), transparent 32%),
+    linear-gradient(180deg, #f8fbfe 0%, var(--steam-bg) 100%) !important;
+  border-color: rgba(40, 120, 185, 0.16) !important;
+}
+
 .steam-games-list {
   display: block !important;
 }
@@ -95,6 +119,11 @@
   transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, transform 180ms ease !important;
 }
 
+.steam-games-theme-light .steam-game-tab {
+  background: rgba(255, 255, 255, 0.74) !important;
+  color: var(--steam-muted) !important;
+}
+
 .steam-game-tab:hover,
 .steam-game-tab:focus-visible {
   color: var(--steam-text) !important;
@@ -107,6 +136,11 @@
   color: #07111d !important;
   border-color: transparent !important;
   box-shadow: 0 8px 20px rgba(42, 117, 187, 0.32) !important;
+}
+
+.steam-games-theme-light .steam-game-active {
+  color: #ffffff !important;
+  box-shadow: 0 8px 18px rgba(21, 92, 147, 0.22) !important;
 }
 
 .steam-game-item {
@@ -131,6 +165,13 @@
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease !important;
 }
 
+.steam-games-theme-light .steam-game-item {
+  background:
+    linear-gradient(135deg, rgba(40, 120, 185, 0.04), rgba(79, 143, 36, 0.025)),
+    var(--steam-surface) !important;
+  box-shadow: 0 12px 26px rgba(24, 38, 54, 0.1) !important;
+}
+
 .steam-game-item::before {
   content: "" !important;
   position: absolute !important;
@@ -146,6 +187,10 @@
   box-shadow: 0 18px 36px rgba(3, 10, 18, 0.32) !important;
 }
 
+.steam-games-theme-light .steam-game-item:hover {
+  box-shadow: 0 18px 34px rgba(24, 38, 54, 0.16) !important;
+}
+
 .steam-game-picture {
   grid-area: picture !important;
   position: static !important;
@@ -157,6 +202,11 @@
   overflow: hidden !important;
   background: #0b121b !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.steam-games-theme-light .steam-game-picture {
+  background: #dce7f0 !important;
+  border-color: rgba(66, 99, 130, 0.16) !important;
 }
 
 .steam-game-picture img {
@@ -219,6 +269,11 @@
   font-variant-numeric: tabular-nums !important;
 }
 
+.steam-games-theme-light .steam-game-info-time {
+  background: rgba(79, 143, 36, 0.1) !important;
+  color: #315f13 !important;
+}
+
 .steam-game-link {
   grid-area: links !important;
   min-height: 44px !important;
@@ -252,6 +307,11 @@
   transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease !important;
 }
 
+.steam-games-theme-light .steam-game-button {
+  background: rgba(40, 120, 185, 0.08) !important;
+  color: #155c93 !important;
+}
+
 .steam-game-button:hover,
 .steam-game-button:focus-visible {
   background: linear-gradient(135deg, rgba(102, 192, 244, 0.28), rgba(42, 117, 187, 0.28)) !important;
@@ -259,6 +319,12 @@
   color: #ffffff !important;
   transform: translateY(-1px) !important;
   box-shadow: none !important;
+}
+
+.steam-games-theme-light .steam-game-button:hover,
+.steam-games-theme-light .steam-game-button:focus-visible {
+  background: linear-gradient(135deg, rgba(40, 120, 185, 0.14), rgba(21, 92, 147, 0.12)) !important;
+  color: #0f426b !important;
 }
 
 .steam-game-button:active {
@@ -272,6 +338,13 @@
 .steam-games-profile:focus-visible {
   outline: 3px solid rgba(154, 212, 74, 0.72) !important;
   outline-offset: 3px !important;
+}
+
+.steam-games-theme-light .steam-game-tab:focus-visible,
+.steam-games-theme-light .steam-game-button:focus-visible,
+.steam-games-theme-light .steam-game-title a:focus-visible,
+.steam-games-theme-light .steam-games-profile:focus-visible {
+  outline-color: rgba(79, 143, 36, 0.48) !important;
 }
 
 .steam-game-pagination {
