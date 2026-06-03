@@ -1,9 +1,6 @@
 const fs = require('hexo-fs');
 const path = require('path');
-const log = require('hexo-log')({
-    debug: false,
-    silent: false
-});
+const log = require('./lib/logger');
 const axios = require('axios-https-proxy-fix');
 
 let options = {

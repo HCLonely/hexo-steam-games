@@ -17,11 +17,11 @@
   "license": "Apache Licence 2.0",
   "dependencies": {
     "axios-https-proxy-fix": "^0.17.1",
-    "cheerio": "^1.0.0-rc.3",
-    "ejs": "^3.0.1",
-    "hexo-fs": "^2.0.0",
-    "hexo-i18n": "^1.0.0",
-    "hexo-log": "^1.0.0",
+    "cheerio": "^1.2.0",
+    "ejs": "^6.0.1",
+    "hexo-fs": "^5.0.1",
+    "hexo-i18n": "^2.0.0",
+    "hexo-log": "^4.1.0",
     "path": "^0.12.7"
   },
   "repository": {
