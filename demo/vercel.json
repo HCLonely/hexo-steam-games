@@ -1,0 +1,6 @@
+{
+  "buildCommand": "pnpm run build",
+  "installCommand": "pnpm install",
+  "outputDirectory": "public",
+  "framework": null
+}
