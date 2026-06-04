@@ -6,7 +6,7 @@
 
 **为Hexo添加Steam游戏库页面**.
 
-[Demo](https://demo.hclonely.com/steamgames/)
+[Demo](https://hexo-steam-games.vercel.app/steam/)
 
 ## 安装
 
