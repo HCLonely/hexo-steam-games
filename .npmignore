@@ -1,0 +1,6 @@
+demo/
+.history/
+.pnpm-store/
+.npm-cache/
+node_modules/
+npm-debug.log*

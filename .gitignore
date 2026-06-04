@@ -3,4 +3,5 @@ node_modules/
 data/
 .superpowers/
 .pnpm-store/
+.npm-cache/
 test/
