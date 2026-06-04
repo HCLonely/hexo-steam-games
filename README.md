@@ -84,8 +84,11 @@ steam:
 
 ## 示例
 
-![示例图片](https://github.com/HCLonely/hexo-steam-games/raw/master/example1.png)
-![示例图片](https://github.com/HCLonely/hexo-steam-games/raw/master/example2.png)
+- 暗色主题
+![示例图片](./example1.png?raw=true)
+
+- 亮色主题
+![示例图片](./example2.png?raw=true)
 
 ## Lisense
 

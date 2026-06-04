@@ -54,8 +54,9 @@
 
 .steam-games-quote p {
   margin: 0 !important;
-  color: inherit !important;
+  color: #000 !important;
   line-height: 1.7 !important;
+  font-size: medium !important;
 }
 
 .steam-games-profile {
