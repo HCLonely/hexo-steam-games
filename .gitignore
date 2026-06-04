@@ -2,3 +2,5 @@ node_modules/
 .history/
 data/
 .superpowers/
+.pnpm-store/
+hexo-test-site/
