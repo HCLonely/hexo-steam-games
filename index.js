@@ -39,8 +39,15 @@ hexo.extend.console.register('steam', 'Update steam games data', options, functi
             updateSteamGames(this.config.steam.steamId, this.config.steam.apiKey, this.source_dir, this.config.steam.tab, this.config.steam.length, this.config.steam.proxy, this.config.steam.freeGames);
         } else if (this.config.steam.steamInfos) {
             this.config.steam.steamInfos.forEach(steamInfo => {
-
-                updateSteamGames(steamInfo.id, this.config.steam.apiKey, this.source_dir, steamInfo.tab || this.config.steam.tab, steamInfo.length || this.config.steam.length, steamInfo.proxy || this.config.steam.proxy, steamInfo.freeGames || this.config.steam.freeGames);
+                updateSteamGames({
+                    steamId: steamInfo.id,
+                    apiKey: this.config.steam.apiKey,
+                    source_dir: this.source_dir,
+                    sortType: steamInfo.sortType || this.config.steam.sortType || "appid",
+                    length: steamInfo.length ?? this.config.steam.length ?? 1000,
+                    proxy: steamInfo.proxy ?? this.config.steam.proxy ?? false,
+                    freeGames: steamInfo.freeGames ?? this.config.steam.freeGames ?? false
+                });
             });
         }
     } else {
@@ -48,7 +55,7 @@ hexo.extend.console.register('steam', 'Update steam games data', options, functi
     }
 });
 
-function updateSteamGames(steamId, apiKey, source_dir, tab = "recent", length = 1000, proxy = false, freeGames = false) {
+function updateSteamGames({ steamId, apiKey, source_dir, sortType, length, proxy, freeGames }) {
     log.info(`Getting steam(${steamId}) games, please wait...`);
     let options = {
         method: "GET",
@@ -67,9 +74,7 @@ function updateSteamGames(steamId, apiKey, source_dir, tab = "recent", length = 
     }
     axios(options).then(response => {
         if (response.status === 200) {
-            const games = (tab == 'recent') ? response.data.response.games.sort((a, b) =>
-                b.rtime_last_played - a.rtime_last_played
-            ) : response.data.response.games;
+            const games = response.data.response.games;
             if (games.length === 0) {
                 log.error('No game data obtained.')
                 return;
@@ -78,6 +83,11 @@ function updateSteamGames(steamId, apiKey, source_dir, tab = "recent", length = 
                 fs.mkdirsSync(path.join(source_dir, "/_data/"));
             }
             let gameData = games.slice(0, length);
+            if (sortType !== 'appid') {
+                gameData = gameData.sort((a, b) => {
+                    return sortType === 'playtime' ? (b.playtime_forever - a.playtime_forever) : (b.rtime_last_played - a.rtime_last_played);
+                });
+            }
             fs.writeFile(path.join(source_dir, `/_data/${steamId}.json`), JSON.stringify(gameData), err => {
                 if (err) {
                     log.info(`Failed to write data to ${steamId}.json`);

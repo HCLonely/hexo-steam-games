@@ -36,7 +36,7 @@ steam:
   title: Steam游戏库
   quote: '+1+1+1+1+1'
   theme: dark # dark 或 light，默认 dark
-  tab: recent
+  sortType: appid
   length: 1000
   imgUrl: '*****'
   proxy:
@@ -54,7 +54,7 @@ steam:
 - **title**: 该页面的标题
 - **quote**: 写在页面开头的一段话,支持html语法
 - **theme**: 页面主题，可选 `dark` 或 `light`，默认 `dark`
-- **tab**: `all`或`recent`, `all: 所有游戏`, `recent: 最近游玩的游戏`
+- **sortType**: 排序方式：`appid`(AppID)、`playtime`(游玩时长)、`lastplayed`(最近游玩)。默认 `appid`
 - **length**: 要显示游戏的数量，游戏太多的话可以限制一下
 - **imgUrl**: 图片链接，在`quote`下面放一张图片，图片链接到Steam个人资料，可留空
 - **proxy**: 如果无法访问steam社区的话请使用代理
