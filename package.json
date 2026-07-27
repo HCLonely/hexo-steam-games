@@ -20,8 +20,7 @@
     "ejs": "^6.0.1",
     "hexo-fs": "^5.0.1",
     "hexo-i18n": "^2.0.0",
-    "hexo-log": "^4.1.0",
-    "path": "^0.12.7"
+    "hexo-log": "^4.1.0"
   },
   "repository": {
     "type": "git",
